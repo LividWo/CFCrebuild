@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TXTprocess {
 	//这个类用于将训练集TXT文件按照category进行分割
@@ -47,7 +48,7 @@ public class TXTprocess {
 	}
 	
 	private static String splitDoc(String doc, boolean b) {
-		String pattern = "   ";
+		String pattern = "\t";
 		String title = new String();
 		title = doc.substring(0, doc.indexOf(pattern));
 		String abs = new String();
@@ -125,6 +126,70 @@ public class TXTprocess {
 			fw = new FileWriter(file, true);
 			bw = new BufferedWriter(fw);
 			bw.write(result);
+			bw.newLine();
+			bw.close();
+		} catch (IOException e) {
+			System.out.println("error in pipline");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void piplineGeneral(String filepath ,String result ){
+		File file = new File(filepath);
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+		try {
+			if(!file.exists())
+				file.createNewFile();
+			fw = new FileWriter(file, true);
+			bw = new BufferedWriter(fw);
+			bw.write(result);
+			bw.newLine();
+			bw.close();
+		} catch (IOException e) {
+			System.out.println("error in pipline");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void piplineMap(String path ,Map<String, Integer> map) {
+		File file = new File(path);
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+	    
+		try {
+			if(!file.exists())
+				file.createNewFile();
+			fw = new FileWriter(file, true);
+			bw = new BufferedWriter(fw);
+			for(String term :map.keySet()){
+				int value = map.get(term);
+				bw.write(String.format("%s : %d", term, value));
+				bw.newLine();
+			}
+			bw.newLine();
+			bw.close();
+		} catch (IOException e) {
+			System.out.println("error in pipline");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void piplineMapdouble(String path ,Map<String, Double> map) {
+		File file = new File(path);
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+	    System.out.println("storing :"+path);
+		try {
+			if(!file.exists())
+				file.createNewFile();
+			fw = new FileWriter(file, true);
+			bw = new BufferedWriter(fw);
+			for(String term :map.keySet()){
+				double value = map.get(term);
+				bw.write(String.format("%s : %f", term, value));
+				bw.newLine();
+			}
 			bw.newLine();
 			bw.close();
 		} catch (IOException e) {

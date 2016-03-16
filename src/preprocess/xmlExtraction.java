@@ -63,7 +63,9 @@ public class xmlExtraction {
 				Elements topicsd = topic.select("D");
 				if(topicsd.size()==1){
 					sb.append(topicsd.text());
-					sb.append("   ");
+					sb.append("\t");
+					wordInTitle.append(topicsd.text());
+					wordInTitle.append("\t");
 				}
 				else
 					continue;
@@ -81,9 +83,9 @@ public class xmlExtraction {
 				}
 			}
 		if(isTitle ==true)
-			return wordInTitle.toString();
+			return wordInTitle.toString().toLowerCase();
 		else 
-		    return sb.toString();
+		    return sb.toString().toLowerCase();
 	}
 	
 	/**
@@ -92,10 +94,10 @@ public class xmlExtraction {
 	 * notice that : if you want to write a different file change the param setting in extractconten too!!!
 	 */
 	public static void pipline(int corpusNum ,String result ){
-		String filepath ="E://java//CFC//";
-		File file = new File(filepath+"trainingraw"+".txt");
+		String filepath ="E://java//dataset//analyzer//";
+//		File file = new File(filepath+"trainingraw"+".txt");
 //		File file = new File(filepath+"testingraw"+".txt");
-//		File file = new File(filepath+"traingTitleRaw"+".txt");
+		File file = new File(filepath+"traingTitleRaw"+".txt");
 //		File file = new File(filepath+"testingTitleRaw"+".txt");
 		FileWriter fw = null;
 		BufferedWriter bw = null;
@@ -115,15 +117,15 @@ public class xmlExtraction {
 	}
 	
 	public static void main(String[] args){
-		/*int corpus;
+		int corpus;
 		for( corpus = 0;corpus<=21;corpus++){
 			Document doc = openFile("E://java//reuters//"+corpus+".xml");
-//			String Title = extractContent(doc,true,true);
-			String Abs = extractContent(doc,false,true);
+//			String Title = extractContent(doc,true,false);
+			String Abs = extractContent(doc,true,true);
 			pipline(corpus, Abs);
-		}*/
-		TXTprocess test = new TXTprocess();
-		test.testcase();
+		}
+	/*	TXTprocess test = new TXTprocess();
+		test.testcase();*/
 	}
 
 }
